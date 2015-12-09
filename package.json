@@ -1,0 +1,30 @@
+{
+  "name": "d3-foci",
+  "version": "0.0.1",
+  "description": "Layout for calculating foci centers",
+  "keywords": [
+    "d3"
+  ],
+  "license": "BSD-3-Clause",
+  "main": "build/d3-foci.js",
+  "jsnext:main": "index",
+  "homepage": "https://github.com/christophe-g/d3-foci",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/christophe-g/d3-foci.git"
+  },
+  "scripts": {
+    "pretest": "mkdir -p build && node -e 'process.stdout.write(\"var version = \\\"\" + require(\"./package.json\").version + \"\\\"; export * from \\\"../index\\\"; export {version};\");' > build/bundle.js && rollup -f umd -u d3-foci -n d3_foci -o build/d3-foci.js -- build/bundle.js && cat ./end.js >> build/d3-foci.js",
+    "test": "faucet `find test -name '*-test.js'`",
+    "prepublish": "npm run test && uglifyjs build/d3-foci.js -c -m -o build/d3-foci.min.js && rm -f build/d3-foci.zip && zip -j build/d3-foci.zip -- LICENSE README.md build/d3-foci.js build/d3-foci.min.js"
+  },
+  "devDependencies": {
+    "faucet": "0.0",
+    "rollup": "0.20.5",
+    "tape": "4",
+    "uglify-js": "2"
+  },
+  "dependencies": {
+    "euclidean-distance": "^0.1.1"
+  }
+}
